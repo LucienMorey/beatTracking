@@ -1,8 +1,5 @@
-import matplotlib.pyplot as plt
 import numpy as np
 import pyaudio
-from pyqtgraph.Qt import QtGui, QtCore
-import pyqtgraph as pg
 import struct
 from scipy.ndimage.filters import maximum_filter
 import sys
@@ -21,14 +18,13 @@ from madmom.audio.signal import Stream
                 queue_size=3
                 )'''
 pa = pyaudio.PyAudio()
-stream= pa.open(rate = 44100,
-                channels = 1,
+stream= pa.open(rate = 32000,
+                channels = 2,
                 format = pyaudio.paFloat32,
                 input = True,
                 frames_per_buffer = 2048,
-                input_device_index=6)
+                input_device_index=2)
 proc = madmom.audio.signal.FramedSignalProcessor(origin='stream')
-plt.show()
 while True:
     data = stream.read(1024)
     data = np.fromstring(data ,'float32').astype(np.float32, copy=False)
